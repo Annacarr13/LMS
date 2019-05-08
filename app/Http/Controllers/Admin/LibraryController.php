@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
 use Auth;
-use App\User;
+use App\Library;
 
 class LibraryController extends Controller
 {
@@ -23,7 +23,11 @@ class LibraryController extends Controller
      */
     public function getIndex()
     {
-      return view('Admin.library.index');
+      $libraries = Library::all();
+
+      return view('Admin.library.index', [
+        'libraries' => $libraries,
+      ]);
     }
     public function getAdd()
     {
@@ -31,15 +35,45 @@ class LibraryController extends Controller
     }
     public function postAdd()
     {
-      return view('Admin.library.index');
+      $library =new Library;
+
+      $library->libraryName = Request()->input('name');
+      $library->libraryAddress = Request()->input('address');
+      $library->libraryPostcode = Request()->input('postcode');
+
+      $library->save();
+
+      $libraries = Library::all();
+
+      return view('Admin.library.index', [
+        'libraries' => $libraries,
+      ]);
     }
     public function getEdit()
     {
-      return view('Admin.library.edit');
+      $id = Request()->input('libraryId');
+      $library = Library::where('idLibrary', $id);
+
+      return view('Admin.library.edit', [
+        'library' => $library,
+      ]);
     }
     public function postEdit()
     {
-      return view('Admin.library.index');
+      $id = Request()->input('libraryId');
+      $library = Library::where('idLibrary', $id);
+
+      $libraryName = Request()->input('name');
+      $libraryAddress = Request()->input('address');
+      $libraryPostcode = Request()->input('postcode');
+
+      $library->save();
+
+      $libraries = Library::all();
+
+      return view('Admin.library.index', [
+        'libraries' => $libraries,
+      ]);
     }
 
 }

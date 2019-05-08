@@ -31,18 +31,19 @@
                    <th>Address</th>
                    <th>Mobile</th>
                  </tr>
+                 @foreach($users as $user)
                  <tr>
-                   <td>1</td>
-                   <td>Anna Carr</td>
-                   <td>Admin</td>
-                   <td>acarr@gmail.com</td>
-                   <td>76 Jubilee Drive</td>
-                   <td>07785224568</td>
+                   <td>{{$loop->iteration}}</td>
+                   <td>{{$user->userFirstname}} {{$user->userSurname}}</td>
+                   <td>{{$user->userRole}}</td>
+                   <td>{{$user->userEmail}}</td>
+                   <td>{{$user->userAddress}}</td>
+                   <td>{{$user->userMobile}}</td>
                  </tr>
-
+                 @endforeach
                </table>
              </div>
-            
+
         </div>
     </div>
 </div>

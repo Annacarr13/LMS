@@ -23,23 +23,23 @@ class CustomerController extends Controller
      */
     public function getIndex()
     {
-      return view('Librarian.customer.index');
+      return view('Librarian.customers.index');
     }
     public function getAdd()
     {
-      return view('Librarian.customer.add');
+      return view('Librarian.customers.add');
     }
     public function postAdd()
     {
-      return view('Librarian.customer.index');
+      return view('Librarian.customers.index');
     }
     public function getEdit()
     {
-      return view('Librarian.customer.edit');
+      return view('Librarian.customers.edit');
     }
     public function postEdit()
     {
-      return view('Librarian.customer.index');
+      return view('Librarian.customers.index');
     }
 
 }

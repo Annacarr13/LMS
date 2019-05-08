@@ -23,7 +23,11 @@ class IndexController extends Controller
      */
     public function getIndex()
     {
-      return view('Admin.user.index');
+      $users = User::all();
+
+      return view('Admin.user.index', [
+        'users' => $users,
+      ]);
     }
 
 }

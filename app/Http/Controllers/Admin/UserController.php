@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 use App\User;
 
@@ -23,7 +24,11 @@ class UserController extends Controller
      */
     public function getIndex()
     {
-      return view('Admin.user.index');
+      $users = User::all();
+
+      return view('Admin.user.index', [
+        'users' => $users,
+      ]);
     }
     public function getAdminAdd()
     {
@@ -31,15 +36,58 @@ class UserController extends Controller
     }
     public function postAdminAdd()
     {
-      return view('Admin.user.index');
+      // $this->validate(Request(), [
+      //       'firstname'     => 'required|min:3',
+      //       'lastname'     => 'required|min:3',
+      //       'userEmail'    => 'required|email|unique:User',
+      //       'password' => 'requisred|confirmed|min:6',
+      //   ]);
+
+      $user = new User;
+      $user->userRole = 'admin';
+      $user->userFirstname = Request()->input('firstname');
+      $user->userSurname = Request()->input('lastname');
+      $user->userEmail = Request()->input('email');
+      $user->password = Hash::make(Request()->input('password'));
+      $user->save();
+
+      $users = User::all();
+
+      return view('Admin.user.index', [
+        'users' => $users,
+      ]);
     }
+
     public function getAdminEdit()
     {
-      return view('Admin.user.editAdmin');
+      $id = Request()->input('userid');
+
+      $user = User::where('idUser', $id);
+
+      return view('Admin.user.editAdmin',[
+        'user' => $user,
+      ]);
     }
+
+
     public function postAdminEdit()
     {
-      return view('Admin.user.index');
+      $id = Request()->input('userid');
+
+      $user = User::where('idUser', $id);
+      $user->userRole = 'admin';
+      $user->userFirstname = Request()->input('firstname');
+      $user->userSurname = Request()->input('lastname');
+      $user->userEmail = Request()->input('email');
+      $user->password = Hash::make(Request()->input('password'));
+
+      $user->save();
+
+      $users = User::all();
+
+      return view('Admin.user.index', [
+        'users' => $users,
+      ]);
     }
     public function getLibrarianAdd()
     {
@@ -47,31 +95,106 @@ class UserController extends Controller
     }
     public function postLibrarianAdd()
     {
-      return view('Admin.user.index');
+      $user = new User;
+      $user->userRole = 'admin';
+      $user->userFirstname = Request()->input('firstname');
+      $user->userSurname = Request()->input('lastname');
+      $user->userEmail = Request()->input('email');
+      $user->password = Hash::make(Request()->input('password'));
+
+      $user->save();
+
+      $users = User::all();
+
+      return view('Admin.user.index', [
+        'users' => $users,
+      ]);
     }
     public function getLibrarianEdit()
     {
-      return view('Admin.user.editLibrarian');
+      $id = Request()->input('userid');
+
+      $user = User::where('idUser', $id);
+
+      return view('Admin.user.editLibrarian',[
+        'user' => $user,
+      ]);
     }
     public function postLibrarianEdit()
     {
-      return view('Admin.user.index');
+      $id = Request()->input('userid');
+
+      $user = User::where('idUser', $id);
+      $user->userRole = 'admin';
+      $user->userFirstname = Request()->input('firstname');
+      $user->userSurname = Request()->input('lastname');
+      $user->userEmail = Request()->input('email');
+      $user->userAddress = Request()->input('address');
+      $user->userMobile = Request()->input('mobile');
+      $user->password = Hash::make(Request()->input('password'));
+
+      $user->save();
+
+      $users = User::all();
+
+      return view('Admin.user.index', [
+        'users' => $users,
+      ]);
     }
     public function getCustomerAdd()
     {
+
       return view('Admin.user.addCustomer');
     }
     public function postCustomerAdd()
     {
-      return view('Admin.user.index');
+      $user = new User;
+      $user->userRole = 'admin';
+      $user->userFirstname = Request()->input('firstname');
+      $user->userSurname = Request()->input('lastname');
+      $user->userEmail = Request()->input('email');
+      $user->userAddress = Request()->input('address');
+      $user->userMobile = Request()->input('mobile');
+      $user->password = Hash::make(Request()->input('password'));
+
+      $user->save();
+
+      $users = User::all();
+
+      return view('Admin.user.index', [
+        'users' => $users,
+      ]);
     }
     public function getCustomerEdit()
     {
-      return view('Admin.user.editCustomer');
+      $id = Request()->input('userid');
+
+      $user = User::where('idUser', $id);
+
+      return view('Admin.user.editCustomer',[
+        'user' => $user,
+      ]);
     }
     public function postCustomerEdit()
     {
-      return view('Admin.user.index');
+      $id = Request()->input('userid');
+
+      $user = User::where('idUser', $id);
+      $user->userRole = 'admin';
+      $user->userFirstname = Request()->input('firstname');
+      $user->userSurname = Request()->input('lastname');
+      $user->userEmail = Request()->input('email');
+      $user->userAddress = Request()->input('address');
+      $user->userMobile = Request()->input('mobile');
+      $user->password = Hash::make(Request()->input('password'));
+
+      $user->save();
+
+      $users = User::all();
+
+      return view('Admin.user.index', [
+        'users' => $users,
+      ]);
     }
 
 }

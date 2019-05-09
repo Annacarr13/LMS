@@ -4,6 +4,9 @@ use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use App\Book;
+use App\Library;
+
 
 class BooksController extends Controller
 {
@@ -23,15 +26,35 @@ class BooksController extends Controller
      */
     public function getIndex()
     {
-      return view('Librarian.books.index');
+      $books = Book::all();
+
+      return view('Librarian.books.index', [
+        'books' => $books,
+      ]);
     }
     public function getAdd()
     {
-      return view('Librarian.books.add');
+
+      $libraries = Library::all();
+
+      return view('Librarian.books.add', [
+        'libraries' => $libraries,
+      ]);
     }
     public function postAdd()
     {
-      return view('Librarian.books.index');
+      $book = new Book;
+
+      $book->bookName = Request()->input('name');
+      $book->idLibrary = Request()->input('library');
+
+      $book->save();
+
+      $books = Book::all();
+
+      return view('Librarian.index', [
+        'books' => $books,
+      ]);
     }
     public function getEdit()
     {
@@ -39,10 +62,43 @@ class BooksController extends Controller
     }
     public function postEdit()
     {
-      return view('Librarian.books.index');
+      return view('Librarian.index');
     }
     public function getRequested()
     {
-      return view('Librarian.books.index');
+      $books = Book::where('bookRegistered', TRUE)->get();
+
+      return view('Librarian.books.index', [
+        'books' => $books,
+      ]);
+
+    }#
+
+    public function requestBook()
+    {
+      $id = Request()->input('bookId');
+      $book = Book::where('idBook', $id)->first();
+      $book->bookRegistered = TRUE;
+      $book->save();
+
+      $books = Book::all();
+      return view('Librarian.books.index', [
+        'books' => $books,
+      ]);
+
+    }
+    public function requestBookReturn()
+    {
+      $id = Request()-input('bookId');
+      $book = Book::find($id);
+      $book->bookRegistered = FALSE;
+      $book->save();
+
+      $books = Book::all();
+      return view('Librarian.index', [
+        'books' => $books,
+      ]);
+
+
     }
 }

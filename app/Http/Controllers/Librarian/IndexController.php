@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use App\Book;
 
 class IndexController extends Controller
 {
@@ -23,7 +24,11 @@ class IndexController extends Controller
      */
     public function getIndex()
     {
-      return view('librarian.index');
+      $books = Book::all();
+
+      return view('Librarian.index', [
+        'books' => $books,
+      ]);
     }
 
 }

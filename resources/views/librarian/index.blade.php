@@ -17,40 +17,23 @@
                 </div>
 
                 <div class="card-body">
-
-                  <div class="col-md-10 row offset-md-1" id="bookContainer">
-                    <div class="col-md-3" id="img">
-                      <img src="{{asset('/images/hp.JPG')}}" alt="Logo" height="auto" width="70%">
+                  @foreach($books as $book)
+                    <div class="col-md-10 row offset-md-1" id="bookContainer">
+                      <div class="col-md-3" id="img">
+                        <img src="{{asset('/images/hp.JPG')}}" alt="Logo" height="auto" width="70%">
+                      </div>
+                      <div class="col-md-6" id="title">
+                        <h5>{{$book->bookName}}</h5>
+                      </div>
+                      <div class="col-md-3" id="requestBtn">
+                        @if($book->bookRequested == FALSE )
+                        <a href="{{url('librarian/books/request?bookId='.$book->idBook)}}" class="btn btn-primary  active" role="button" aria-pressed="true">Request Book</a>
+                        @else
+                        <a href="{{url('librarian/books/request/return?bookId='.$book->idBook)}}" class="btn btn-success  active" role="button" aria-pressed="true">Request Return Of Book</a>
+                        @endif
+                      </div>
                     </div>
-                    <div class="col-md-6" id="title">
-                      <h5>Harry Potter: The Philosophers Stone</h5>
-                    </div>
-                    <div class="col-md-3" id="requestBtn">
-                      <a href="{{url('customer/book/request')}}" class="btn btn-primary  active" role="button" aria-pressed="true">Request Book</a>
-                    </div>
-                  </div>
-                  <div class="col-md-10 row offset-md-1" id="bookContainer">
-                    <div class="col-md-3" id="img">
-                      <img src="{{asset('/images/cw.JPG')}}" alt="Logo" height="auto" width="70%">
-                    </div>
-                    <div class="col-md-6" id="title">
-                      <h5>Charlotte's Web</h5>
-                    </div>
-                    <div class="col-md-3" id="requestBtn">
-                      <a href="{{url('customer/book/request')}}" class="btn btn-primary  active" role="button" aria-pressed="true">Request Book</a>
-                    </div>
-                  </div>
-                  <div class="col-md-10 row offset-md-1" id="bookContainer">
-                    <div class="col-md-3" id="img">
-                      <img src="{{asset('/images/lot.JPG')}}" alt="Logo" height="auto" width="70%">
-                    </div>
-                    <div class="col-md-6" id="title">
-                      <h5>Lord of the rings: Fellowship of the ring</h5>
-                    </div>
-                    <div class="col-md-3" id="requestBtn">
-                      <a href="{{url('customer/book/request')}}" class="btn btn-primary  active" role="button" aria-pressed="true">Request Book</a>
-                    </div>
-                  </div>
+                  @endforeach
              </div>
 
         </div>

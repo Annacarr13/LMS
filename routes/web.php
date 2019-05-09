@@ -70,8 +70,8 @@ Route::get('/home', 'HomeController@index')->name('home');
   Route::post('/librarian/books/add', 'Librarian\BooksController@postAdd'); //
   Route::get('/librarian/books/edit', 'Librarian\BooksController@getEdit'); //
   Route::post('/librarian/books/edit', 'Librarian\BooksController@getEdit'); //
-  Route::get('/librarian/books/request', 'Librarian\BooksController@getRequest'); //
-  Route::post('/librarian/books/request', 'Librarian\BooksController@postRequest'); //
+  Route::get('/librarian/books/request', 'Librarian\BooksController@requestBook'); //
+  Route::post('/librarian/books/request', 'Librarian\BooksController@requestBook'); //
   Route::get('/librarian/books/requested', 'Librarian\BooksController@getRequested'); //
 
 //Customer Auth
